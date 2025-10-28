@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isa Wavrzenczak</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Configurações Globais e Paleta de Cores --- */
+        :root {
+            --cor-primaria: #89AEB2; /* Azul Pastel */
+            --cor-secundaria: #89AEB2; /* Bege Suave */
+            --cor-acento: #000000;    /* Verde Pastel */
+            --cor-texto: #8fa8b1;     /* Cinza Escuro */
+            --cor-fundo: #FCFBF8;     /* Quase Branco */
+            --cor-branca: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--cor-texto);
+            background-color: var(--cor-fundo);
+            overflow-x: hidden; /* Previne scroll horizontal da animação */
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+            color: var(--cor-primaria);
+            margin-bottom: 1.2rem;
+        }
+        h2 { font-size: 2.5rem; text-align: center; }
+        p { margin-bottom: 1rem; }
+        section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; }
+
+        /* --- Cabeçalho --- */
+        header {
+            width: 100%;
+            padding: 20px 0;
+            background-color: var(--cor-branca);
+            border-bottom: 1px solid #eee;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--cor-primaria);
+            text-decoration: none;
+        }
+        .nav-links { list-style: none; display: flex; }
+        .nav-links li { margin-left: 25px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--cor-texto);
+            font-weight: 400;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--cor-primaria); }
+
+        /* --- Botão de Menu Mobile (Hamburger) --- */
+        .menu-hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .menu-hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: var(--cor-texto);
+            border-radius: 5px;
+            transition: all 0.3s linear;
+        }
+
+        /* --- Seção Hero (Início) --- */
+        #hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            padding-top: 100px;
+            background-color: var(--cor-fundo);
+        }
+        .hero-content { flex: 1; padding-right: 40px; }
+        .hero-content h1 { font-size: 3rem; }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .cta-button:hover {
+            background-color: var(--cor-acento);
+            color: var(--cor-texto);
+        }
+        .hero-image { flex: 1; text-align: right; }
+        .hero-image img { max-width: 100%; height: auto; border-radius: 20px; }
+
+        /* --- Seção Sobre --- */
+        #sobre {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            background-color: var(--cor-branca);
+        }
+        #sobre img {
+            flex: 0 0 300px;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .sobre-texto { flex: 1; }
+
+        /* --- Seção Serviços --- */
+        #servicos { background-color: var(--cor-secundaria); }
+        .servicos-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .servico-card {
+            background: var(--cor-branca);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .servico-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .servico-card h3 { font-size: 1.4rem; }
+
+        /* --- Seção Contato --- */
+        #contato { background-color: var(--cor-fundo); }
+        #contato form {
+            max-width: 600px;
+            margin: 40px auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        #contato input,
+        #contato textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--cor-texto);
+        }
+        #contato textarea { min-height: 150px; resize: vertical; }
+        #contato button {
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: center;
+        }
+        #contato button:hover {
+            background-color: var(--cor-acento);
+            color: var(--cor-texto);
+        }
+
+        /* --- Rodapé --- */
+        footer {
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+            padding: 60px 0;
+        }
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .footer-col { flex: 1; min-width: 250px; }
+        .footer-col h4 {
+            font-size: 1.2rem;
+            color: var(--cor-branca);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .footer-col h4::after {
+            content: '';
+            width: 50px;
+            height: 2px;
+            background-color: var(--cor-primaria);
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+        }
+        .footer-col p { font-size: 0.9rem; color: #ddd; }
+        .footer-col .logo-footer {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--cor-branca);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { text-decoration: none; color: #ddd; transition: color 0.3s ease; }
+        .footer-links a:hover { color: var(--cor-primaria); }
+        .footer-social a {
+            display: inline-block;
+            margin-right: 10px;
+            color: #ddd;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #777;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* * =======================================
+         * === CÓDIGO CSS PARA ANIMAÇÃO DE SCROLL ===
+         * =======================================
+        */
+        .hidden-on-scroll {
+            opacity: 0;
+            /* O elemento começa 30px abaixo e invisível */
+            transform: translateY(30px); 
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform; /* Otimização para performance */
+        }
+
+        /* A classe que o JavaScript vai adicionar */
+        .hidden-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0); /* Posição final (original) */
+        }
+
+        /* --- Responsividade --- */
+        @media (max-width: 992px) {
+            h2 { font-size: 2rem; }
+            #hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                min-height: auto;
+                padding-top: 120px;
+            }
+            .hero-content { padding-right: 0; margin-top: 30px; }
+            .hero-content h1 { font-size: 2.5rem; }
+            #sobre { flex-direction: column; text-align: center; }
+            .servicos-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 81px;
+                left: 0;
+                width: 100%;
+                background-color: var(--cor-branca);
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.5s ease-out;
+            }
+            .nav-links.active { max-height: 500px; border-bottom: 1px solid #eee; }
+            .nav-links li { margin: 10px 0; }
+            .menu-hamburger { display: flex; }
+            .menu-hamburger.active div:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+            .menu-hamburger.active div:nth-child(2) { opacity: 0; }
+            .menu-hamburger.active div:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+            .servicos-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-col h4::after { left: 50%; transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="#hero" class="logo">Psicologia</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#sobre">Sobre Mim</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="menu-hamburger" aria-label="Abrir menu">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+        </div>
+    </header>
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h1>Lorem ipsum dolor sit amet consectetur</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                <a href="#contato" class="cta-button">Lorem Ipsum Dolor</a>
+            </div>
+            <div class="hero-image">
+                <img src="https://picsum.photos/600/500?grayscale&blur=1" alt="Imagem ambiente calma">
+            </div>
+        </section>
+
+        <section id="sobre">
+            <img src="https://picsum.photos/id/237/400/400" alt="Retrato profissional" class="hidden-on-scroll">
+            
+            <div class="sobre-texto hidden-on-scroll">
+                <h2>Sobre Mim</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.</p>
+                <p>Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per incephtos himenaeos.</p>
+            </div>
+        </section>
+        
+        <section id="servicos">
+            <h2 class="hidden-on-scroll">Como posso ajudar?</h2>
+            <div class="servicos-grid">
+                <div class="servico-card hidden-on-scroll">
+                    <img src="https://picsum.photos/300/150?random=1" alt="Serviço 1">
+                    <h3>Lorem Ipsum</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="servico-card hidden-on-scroll" style="transition-delay: 200ms;">
+                    <img src="https://picsum.photos/300/150?random=2" alt="Serviço 2">
+                    <h3>Dolor Sit Amet</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+                <div class="servico-card hidden-on-scroll" style="transition-delay: 400ms;">
+                    <img src="https://picsum.photos/300/150?random=3" alt="Serviço 3">
+                    <h3>Consectetur</h3>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contato">
+            <h2 class="hidden-on-scroll">Entre em Contato</h2>
+            <p style="text-align: center;" class="hidden-on-scroll" style="transition-delay: 200ms;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+            
+            <form action="#" method="POST" class="hidden-on-scroll" style="transition-delay: 400ms;">
+                <label for="nome" class="sr-only">Nome</label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" id="email" name="email" placeholder="Seu e-mail" required>
+                <label for="mensagem" class="sr-only">Mensagem</label>
+                <textarea id="mensagem" name="mensagem" placeholder="Sua mensagem" required></textarea>
+                <button type="submit">Enviar Mensagem</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <a href="#hero" class="logo-footer">Psicologia</a>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+                <p>CRP 00/00000</p>
+            </div>
+            <div class="footer-col footer-links">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="#hero">Início</a></li>
+                    <li><a href="#sobre">Sobre Mim</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contato</h4>
+                <p>email@loremipsum.com</p>
+                <p>(41) 99999-9999</p>
+                <p>Lorem Ipsum, 123 - Curitiba/PR</p>
+                <div class="footer-social">
+                    <a href="#">Insta</a>
+                    <a href="#">Zap</a>
+                    <a href="#">TikTok</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Psicologia. Lorem ipsum dolor sit amet. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        /* Espera o DOM carregar para rodar os scripts */
+        document.addEventListener('DOMContentLoaded', () => {
+
+            /* --- CÓDIGO DO MENU HAMBURGER --- */
+            const menuHamburger = document.querySelector('.menu-hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            const navLinksItems = document.querySelectorAll('.nav-links a');
+
+            function toggleMenu() {
+                /* Só executa se os elementos existirem */
+                if (navLinks) {
+                    navLinks.classList.toggle('active');
+                }
+                if (menuHamburger) {
+                    menuHamburger.classList.toggle('active');
+                }
+            }
+
+            /* Checa se o botão hamburger existe ANTES de adicionar o evento */
+            if (menuHamburger) {
+                menuHamburger.addEventListener('click', toggleMenu);
+            }
+
+            /* Checa se os links do menu existem ANTES de adicionar os eventos */
+            if (navLinksItems && navLinksItems.length > 0) {
+                navLinksItems.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks && navLinks.classList.contains('active')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+            }
+
+            /* * =================================
+             * === CÓDIGO PARA ANIMAÇÃO DE SCROLL ===
+             * =================================
+            */
+            
+            /* Primeiro, checa se o navegador do usuário suporta a API "IntersectionObserver" */
+            if ('IntersectionObserver' in window) {
+                const observerOptions = {
+                    root: null, /* Observa em relação ao viewport */
+                    rootMargin: '0px',
+                    threshold: 0.4 /* Ativa quando 10% do elemento está visível */
+                };
+
+                function handleIntersection(entries, observer) {
+                    entries.forEach(entry => {
+                        /* Se o elemento está visível */
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target); /* Para de observar após animar */
+                        }
+                    });
+                }
+
+                /* Cria o observador */
+                const observer = new IntersectionObserver(handleIntersection, observerOptions);
+                
+                /* Seleciona TODOS os elementos com a classe .hidden-on-scroll */
+                const hiddenElements = document.querySelectorAll('.hidden-on-scroll');
+
+                /* Checa se de fato existem elementos para observar */
+                if (hiddenElements && hiddenElements.length > 0) {
+                    /* Manda o observador "assistir" cada um deles */
+                    hiddenElements.forEach(el => observer.observe(el));
+                }
+
+            } else {
+                /* Se o navegador for muito antigo (ex: Internet Explorer), */
+                /* apenas mostra todos os elementos de uma vez para não quebrar o site. */
+                console.warn("IntersectionObserver não é suportado. Mostrando elementos diretamente.");
+                const hiddenElements = document.querySelectorAll('.hidden-on-scroll');
+                if (hiddenElements && hiddenElements.length > 0) {
+                    /* Adiciona a classe .visible direto, sem animação */
+                    hiddenElements.forEach(el => el.classList.add('visible'));
+                }
+            }
+
+        });
+    </script>
+</body>
+</html>
